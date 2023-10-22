@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto:wght@900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.pages {
+    display: none;
+}
+
+.pages.active {
+    display: block;
+}
+
+#file-name {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+#wrapper-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

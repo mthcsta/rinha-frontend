@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./json-three-viewer.css">
+</head>
+<body>
+
+    <div class="pages" id="page-open-file">
+        <h1>JSON Tree Viewer</h1>
+        <p>Simple JSON VIewer that runs completely on-client. No data exchange</p>
+        <input type="file" id="file-input" name="file" />
+        <!-- <button>Load JSON</button> -->
+    </div>
+
+    <div class="pages" id="page-view-file-content">
+        <div id="wrapper-file">
+            <h1 id="file-name">Alltypes.json</h1>
+            <div id="file-content"></div>
+        </div>
+    </div>
+
+    <script src="./src/libs/JSONThreeViewer.js"></script>
+    <script type="module" src="./script.js"></script>
+    
+</body>
+</html>
