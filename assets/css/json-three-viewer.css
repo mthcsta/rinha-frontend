@@ -1,0 +1,53 @@
+ul.json-three-viewer, .json-three-viewer ul {
+    list-style-type: none;
+    margin-block: 0px;
+    margin-inline: 0px;
+    padding-inline-start: 0px;
+}
+
+.json-three-viewer ul {
+    padding-inline-start: 20px;    
+    margin-top: 5px;
+}
+
+.json-three-viewer .key {
+    color: #4E9590;
+}
+
+.json-three-viewer .key-numeral {
+    color: #BFBFBF;
+}
+
+.json-three-viewer .children {
+    border-left: 1px solid #BFBFBF;
+}
+
+.json-three-viewer li.key-array::after, .json-three-viewer li.key-array > .key::after {
+    color: #F2CAB8;
+    font-weight: bold;
+}
+
+.json-three-viewer li.key-array > .key::after {
+    content: "[";
+}
+
+.json-three-viewer li.key-array::after {
+    content: "]";
+}
+
+.json-three-viewer li.key-object::after, .json-three-viewer  li.key-object > .key::after {
+    color: #F2CAB8;
+    font-weight: bold;
+}
+
+.json-three-viewer li.key-object > .key::after {
+    content: "{";
+}
+
+.json-three-viewer li.key-object::after {
+    content: "}";
+}
+
+.json-three-viewer .value-string::before, .json-three-viewer .value-string::after {
+    content: '"';
+}
