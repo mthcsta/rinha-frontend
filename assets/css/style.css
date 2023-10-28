@@ -108,8 +108,19 @@ ul.no-margin-list {
     border-radius: 3px;
     font-size: 14px;
     background: center;
+    background: linear-gradient(180deg, #E4E4E4 0%, #F7F7F7 100%);
+    border: 1px solid #000000;
+    color: #000000;
+}
+
+h1 {
+    margin: 0;
 }
 
 .custom-file-input input[type="file"] {
     display: none;
+}
+
+.output-message[data-type="error"] {
+    color: #BF0E0E;
 }

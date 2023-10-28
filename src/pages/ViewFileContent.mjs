@@ -69,10 +69,8 @@ function onRender(data) {
     // Exibe o nome do arquivo
     $fileName.innerText = data.fileName;
 
-    const json = JSON.parse(data.fileData);
-
     jsonThreeViewer = new JSONThreeViewer($fileContent, {
-        data: json
+        data: data.fileData
     });
 }
 

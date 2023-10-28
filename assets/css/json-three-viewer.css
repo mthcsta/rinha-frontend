@@ -3,11 +3,16 @@ ul.json-three-viewer, .json-three-viewer ul {
     margin-block: 0px;
     margin-inline: 0px;
     padding-inline-start: 0px;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28.24px;
 }
 
 .json-three-viewer ul {
-    padding-inline-start: 20px;    
-    margin-top: 5px;
+    padding-inline-start: 14px;    
+    margin-top: 0px;
+    margin-left: 2px;
 }
 
 .json-three-viewer .key {
@@ -22,32 +27,39 @@ ul.json-three-viewer, .json-three-viewer ul {
     border-left: 1px solid #BFBFBF;
 }
 
-.json-three-viewer li.key-array::after, .json-three-viewer li.key-array > .key::after {
+.json-three-viewer li.value-type-array::after, .json-three-viewer li.value-type-array > .key::after {
     color: #F2CAB8;
     font-weight: bold;
 }
 
-.json-three-viewer li.key-array > .key::after {
+.json-three-viewer li.value-type-array > .key::after {
     content: "[";
 }
 
-.json-three-viewer li.key-array::after {
+.json-three-viewer li.value-type-array::after {
     content: "]";
 }
 
-.json-three-viewer li.key-object::after, .json-three-viewer  li.key-object > .key::after {
+/*
+.json-three-viewer li.value-type-object::after, .json-three-viewer  li.value-type-object > .key::after {
     color: #F2CAB8;
     font-weight: bold;
 }
 
-.json-three-viewer li.key-object > .key::after {
+.json-three-viewer li.value-type-object > .key::after {
     content: "{";
 }
 
-.json-three-viewer li.key-object::after {
+.json-three-viewer li.value-type-object::after {
     content: "}";
 }
+*/
 
-.json-three-viewer .value-string::before, .json-three-viewer .value-string::after {
+.json-three-viewer .value-type-string::before, .json-three-viewer .value-type-string::after {
     content: '"';
+}
+
+.space {
+    display: inline-block;
+    width: 0px;
 }

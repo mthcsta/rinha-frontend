@@ -6,16 +6,29 @@ function onInit() {
 
     const $fileInput = document.getElementById('file-input');
 
+    const $output = document.getElementById('output');
+
+    const setOutput = (text, type) => {
+        $output.innerHTML = text;
+        $output.setAttribute('data-type', type || 'default');
+    };
+
     $fileInput.addEventListener('change', async function handleChangeFileInput(event) {
         try {
+            setOutput('Loading file...');
             const file = event.target.files[0];
             const fileName = file.name;
-            const fileData = await fileReader.readAsTextAsync(file);
+            const fileRawData = await fileReader.readAsTextAsync(file);
+            const fileData = JSON.parse(fileRawData);
             routes.navigateTo('view-file-content', { fileName, fileData });
         } catch (error) {
-            console.error(error);
+            if (error instanceof SyntaxError) {
+                setOutput('Invalid file. Please load a valid JSON file.', 'error');
+                return;
+            }
+            setOutput(error.message, 'error');
         }
-    });    
+    });
 }
 
 function onRender() {
