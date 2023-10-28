@@ -27,7 +27,7 @@ ul.json-three-viewer, .json-three-viewer ul {
     border-left: 1px solid #BFBFBF;
 }
 
-.json-three-viewer li.value-type-array::after, .json-three-viewer li.value-type-array > .key::after {
+.json-three-viewer li.value-type-array > .value::after, .json-three-viewer li.value-type-array > .key::after {
     color: #F2CAB8;
     font-weight: bold;
 }
@@ -36,7 +36,7 @@ ul.json-three-viewer, .json-three-viewer ul {
     content: "[";
 }
 
-.json-three-viewer li.value-type-array::after {
+.json-three-viewer li.value-type-array > .value::after {
     content: "]";
 }
 
@@ -55,7 +55,7 @@ ul.json-three-viewer, .json-three-viewer ul {
 }
 */
 
-.json-three-viewer .value-type-string::before, .json-three-viewer .value-type-string::after {
+.json-three-viewer .value-type-string > .value::before, .json-three-viewer .value-type-string > .value::after {
     content: '"';
 }
 

@@ -1,21 +1,13 @@
 function JSONThreeViewer($root, opts = {}) {
-
     JSONThreeViewer.Options(opts);
-
     this.$root = $root;
-    this.data = () => opts.data;
-    this.options = () => opts;
-
+    this.opts = opts;
+    this.data = () => this.opts.data;
+    this.options = () => this.opts;
     this.lazyRender = new JSONThreeViewer.prototype.LazyRender();
-
     this.elementsRender = new JSONThreeViewer.prototype.ElementsRender();
-
-    const $parent = this.elementsRender.createRoot();
-
-    this.renderChilds($parent, this.data(), 0);
-
-    this.$root.appendChild($parent);
-    
+    this.extensions.JSONThreeViewer = this;
+    this.construct(this.data());
     return this;
 }
 
@@ -132,15 +124,6 @@ JSONThreeViewer.prototype.fillValue = function ($value, value, valueType, level)
             }
             break;
         default:
-            /*
-            if (typeof value === 'string') {
-                $value.classList.add('value-string');
-            } else if (typeof value === 'number') {
-                $value.classList.add('value-number');
-            } else if (typeof value === 'boolean') {
-                $value.classList.add('value-boolean');
-            }
-            */
             this.elementsRender.innerText($value, value);
             break;
     }
@@ -175,9 +158,21 @@ JSONThreeViewer.Options = function (opts) {
     }
 }
 
+JSONThreeViewer.prototype.construct = function (data) {
+    this.opts.data = data;
+    const $parent = this.elementsRender.createRoot();
+    this.renderChilds($parent, this.data(), 0);
+    this.$root.appendChild($parent);
+}
+
 JSONThreeViewer.prototype.destroy = function () {
     this.lazyRender.observer.disconnect();
     this.$root.innerHTML = '';
+}
+
+JSONThreeViewer.prototype.updateData = function (data) {
+    this.destroy();
+    this.construct(data);
 }
 
 JSONThreeViewer.prototype.ElementsRender = function () {
@@ -228,3 +223,5 @@ JSONThreeViewer.prototype.ElementsRender = function () {
     };
     return this;
 };
+
+JSONThreeViewer.prototype.extensions = {};

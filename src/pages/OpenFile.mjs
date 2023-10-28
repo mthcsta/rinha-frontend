@@ -27,6 +27,7 @@ function onInit() {
                 return;
             }
             setOutput(error.message, 'error');
+            console.error(error);
         }
     });
 }
