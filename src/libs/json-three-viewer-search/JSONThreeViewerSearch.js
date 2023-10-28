@@ -12,22 +12,27 @@ JSONThreeViewer.prototype.extensions.search.Options = function (opts) {
 };
 
 JSONThreeViewer.prototype.extensions.search.addEventListenerSearchInput = function () {
+    let timeout = null;
     this.$input.addEventListener('keyup', (event) => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
         if (event.key === 'Escape') {
-            $wrapper.classList.add('hidden');
+            this.$wrapper.classList.add('hidden');
         }
-        const search = event.target.value;
-        const $list = this.$content.querySelector('ul');
-        $list.innerHTML = '';
-
-        if (search.length === 0) {
-            return;
-        }
-
-        const founds = this.filter(search);
-
-        this.render($list, founds);
+        timeout = setTimeout(this.handleSearch.bind(this, event), 350);
     });
+};
+
+JSONThreeViewer.prototype.extensions.search.handleSearch = function (event) {
+    const search = event.target.value;
+    const $list = this.$content.querySelector('ul');
+    $list.innerHTML = '';
+    if (search.length === 0) {
+        return;
+    }
+    const founds = this.filter(search);
+    this.render($list, founds);    
 };
 
 JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, path) {
@@ -36,7 +41,7 @@ JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, p
         if (key.indexOf(text) !== -1 || (typeof data[key] === 'string' && data[key].indexOf(text) !== -1)) {
             found.push({key, value: data[key], path: path.concat([key])});
         } else if (typeof data[key] === 'object' && data[key] !== null) {
-            found.push(...filterNode(data[key], text, [...path, key]));
+            found.push(...this.filterNode(data[key], text, [...path, key]));
         }
     }
     return found;
