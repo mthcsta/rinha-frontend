@@ -140,7 +140,7 @@ JSONThreeViewer.prototype.createDocumentFragment = function (data, keys, level, 
 
         const $item = this.elementsRender.createItem(level, valueType);
         const $key = this.elementsRender.createKey(jsonKey, data, level);
-        const $value = this.elementsRender.createValue();
+        const $value = this.elementsRender.createValue(valueType);
 
         this.fillValue($value, value, valueType, level);
         this.elementsRender.append($item, $key, $value);
@@ -206,10 +206,10 @@ JSONThreeViewer.prototype.ElementsRender = function () {
         $key.classList.add('value-type-' + valueType);
         return $key;
     }
-    this.createValue = function (value) {
-        const $value = document.createElement('span');
+    this.createValue = function (type) {
+        const element = type === 'object' || type === 'array' ? 'div' : 'span';
+        const $value = document.createElement(element);
         $value.classList.add('value');
-
         return $value;
     };
     this.createChildren = function () {
