@@ -6,6 +6,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
+    margin: 0px;
 }
 
 .pages {
@@ -20,6 +21,10 @@ body {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 1rem;
+}
+
+#file-content {
+    margin: 1rem;
 }
 
 #wrapper-search {
@@ -89,6 +94,8 @@ ul.no-margin-list {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .page-centered {
