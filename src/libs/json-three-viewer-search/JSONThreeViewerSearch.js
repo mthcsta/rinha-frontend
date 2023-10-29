@@ -74,7 +74,25 @@ JSONThreeViewer.prototype.extensions.search.render = function ($root, founds, to
     this.elementsRender.append($root, ...founds.map(this.renderFoundItem.bind(this, data)));
 };
 
+JSONThreeViewer.prototype.extensions.search.renderFoundValue = function (value) {
+    switch (this.self.JSONThreeViewer.getValueType(value)) {
+        case 'array':
+            if (value.length > 0) {
+                return '[...]';
+            }
+            return '[]';
+        case 'object':
+            if (Object.keys(value).length > 0) {
+                return '{...}';
+            }
+            return '{}';
+        default:
+            return value;
+    }
+};
+
 JSONThreeViewer.prototype.extensions.search.renderFoundItem = function (data, found) {
+    const foundValue = this.renderFoundValue(found.value);
     const renderFound = [...found.path].reverse().reduce((html, path) => {
         const pathData = data[path];
         const $ul = document.createElement('ul');
@@ -97,7 +115,7 @@ JSONThreeViewer.prototype.extensions.search.renderFoundItem = function (data, fo
         $li.append($key, $value)
         $ul.appendChild($li);
         return $ul;
-    }, found.value);
+    }, foundValue);
 
     const $searchResultItem = this.elementsRender.createSearchResultItem();
     const $threeLocation = this.elementsRender.createThreeLocation(found.path.join(this.threeLocationSepparator));
