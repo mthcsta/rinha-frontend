@@ -49,10 +49,11 @@ JSONThreeViewer.prototype.renderChilds = function ($parent, data, level) {
     this.elementsRender.appendChild($parent, iterator.next().value);
     this.lazyRender.register($parent, () => {
         const chunk = iterator.next();
-        if (!chunk.done) {
-            this.elementsRender.appendChild($parent, chunk.value);
+        if (chunk.done) {
+            return false;
         }
-        return chunk.done;
+        this.elementsRender.appendChild($parent, chunk.value);
+        return true;
     });
 };
 
@@ -168,12 +169,12 @@ JSONThreeViewer.prototype.construct = function (data) {
         }
     });
     this.renderChilds($parent, this.data(), 0);
-    this.$root.appendChild($parent);
+    this.elementsRender.appendChild(this.$root, $parent);
 }
 
 JSONThreeViewer.prototype.destroy = function () {
     this.lazyRender.observer.disconnect();
-    this.$root.innerHTML = '';
+    this.elementsRender.innerText(this.$root, '');
 }
 
 JSONThreeViewer.prototype.updateData = function (data) {
