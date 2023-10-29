@@ -161,6 +161,12 @@ JSONThreeViewer.Options = function (opts) {
 JSONThreeViewer.prototype.construct = function (data) {
     this.opts.data = data;
     const $parent = this.elementsRender.createRoot();
+    $parent.addEventListener('click', (event) => {
+        const $target = event.target;
+        if ($target.classList.contains('value-type-object') || $target.classList.contains('value-type-array')) {
+            $target.classList.toggle('closed');
+        }
+    });
     this.renderChilds($parent, this.data(), 0);
     this.$root.appendChild($parent);
 }

@@ -63,3 +63,7 @@ ul.json-three-viewer, .json-three-viewer ul {
     display: inline-block;
     width: 0px;
 }
+
+.json-three-viewer .value-type-object.closed .children, .json-three-viewer .value-type-array.closed .children {
+    display: none;
+}
