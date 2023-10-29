@@ -39,18 +39,18 @@ JSONThreeViewer.prototype.extensions.search.handleSearch = function (event) {
     this.render($list, founds.slice(0, this.limitRender), founds.length);    
 };
 
-JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, path, foundTotal) {
+JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, path, foundTotal = {found: 0}) {
     let found = [];
     const entries = Object.entries(data);
     let index = 0;
     do {
         const [key, value] = entries[index];
 
-        if (key.indexOf(text) !== -1 || (typeof value === 'string' && value.indexOf(text) !== -1)) {
+        if (key.indexOf(text) !== -1 || ((typeof value === 'string' || typeof value === 'number') && value.indexOf(text) !== -1)) {
             foundTotal.found++;
-            found.push({key, value: value, path: path.concat([key])});
+            found.push({value: value, path: path.concat([{key, type: this.self.JSONThreeViewer.getValueType(value)}])});
         } else if (typeof value === 'object' && value !== null) {
-            found.push(...this.filterNode(value, text, path.concat([key]), foundTotal));
+            found.push(...this.filterNode(value, text, path.concat([{key, type: this.self.JSONThreeViewer.getValueType(value)}]), foundTotal));
         };
 
         index++;
@@ -59,7 +59,7 @@ JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, p
 };
 
 JSONThreeViewer.prototype.extensions.search.filter = function (text) {
-    return this.filterNode(this.self.JSONThreeViewer.data(), text, [], {found: 0});
+    return this.filterNode(this.self.JSONThreeViewer.data(), text, []);
 };
 
 JSONThreeViewer.prototype.extensions.search.render = function ($root, founds, total) {
@@ -93,19 +93,12 @@ JSONThreeViewer.prototype.extensions.search.renderFoundValue = function (value) 
 
 JSONThreeViewer.prototype.extensions.search.renderFoundItem = function (data, found) {
     const foundValue = this.renderFoundValue(found.value);
-    const renderFound = [...found.path].reverse().reduce((html, path) => {
-        const pathData = data[path];
+    const renderFound = [...found.path].reverse().reduce((html, pathObject) => {
+        const {key: path, type} = pathObject;
         const $ul = document.createElement('ul');
-        $ul.classList.add('children', 'json-three-viewer');
-        if (Array.isArray(pathData)) {
-            $ul.classList.add('key-array');
-        } else if (typeof pathData === 'object' && pathData !== null) {
-            $ul.classList.add('key-object');
-        } else {
-            $ul.classList.add('key-value');
-        }
+        $ul.classList.add('children');
         const $li = document.createElement('li');
-        $li.classList.add('item');
+        $li.classList.add('item', 'value-type-' + type);
         const $key = document.createElement('span');
         $key.classList.add('key');
         $key.innerText = path + ': ';
@@ -115,10 +108,26 @@ JSONThreeViewer.prototype.extensions.search.renderFoundItem = function (data, fo
         $li.append($key, $value)
         $ul.appendChild($li);
         return $ul;
+        
+       /*
+        const pathData = found.path.slice(0, found.path.length - index).reduce((data, key) => data[key], data);
+        const type = this.self.JSONThreeViewer.getValueType(pathData);
+
+        switch (type) {
+            case 'object':
+                return { [path]: newData };
+            case 'array':
+                return [newData];
+            default:
+                return newData;
+        }
+        */
     }, foundValue);
 
+    renderFound.classList.add('root', 'json-three-viewer');
+
     const $searchResultItem = this.elementsRender.createSearchResultItem();
-    const $threeLocation = this.elementsRender.createThreeLocation(found.path.join(this.threeLocationSepparator));
+    const $threeLocation = this.elementsRender.createThreeLocation(found.path.map(({key}) => key).join(this.threeLocationSepparator));
     const $searchResultValue = this.elementsRender.createSearchResultValue(renderFound);
     this.elementsRender.append($searchResultItem, $threeLocation, $searchResultValue);
 

@@ -27,30 +27,30 @@ ul.json-three-viewer, .json-three-viewer ul {
     border-left: 1px solid #BFBFBF;
 }
 
-.json-three-viewer li.value-type-array > .value::after, .json-three-viewer li.value-type-array > .key::after {
+.json-three-viewer .value-type-array > .value::after, .json-three-viewer .value-type-array > .key::after {
     color: #F2CAB8;
     font-weight: bold;
 }
 
-.json-three-viewer li.value-type-array > .key::after {
+.json-three-viewer .value-type-array > .key::after {
     content: "[";
 }
 
-.json-three-viewer li.value-type-array > .value::after {
+.json-three-viewer .value-type-array > .value::after {
     content: "]";
 }
 
 /*
-.json-three-viewer li.value-type-object::after, .json-three-viewer  li.value-type-object > .key::after {
+.json-three-viewer .value-type-object::after, .json-three-viewer  .value-type-object > .key::after {
     color: #F2CAB8;
     font-weight: bold;
 }
 
-.json-three-viewer li.value-type-object > .key::after {
+.json-three-viewer .value-type-object > .key::after {
     content: "{";
 }
 
-.json-three-viewer li.value-type-object::after {
+.json-three-viewer .value-type-object::after {
     content: "}";
 }
 */
