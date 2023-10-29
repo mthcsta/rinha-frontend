@@ -11,6 +11,7 @@ function onInit() {
 
     jsonThreeViewer = new JSONThreeViewer($fileContent, {
         data: [],
+        maxPerRender: 5,
     });
 
     jsonThreeViewer.extensions.search({

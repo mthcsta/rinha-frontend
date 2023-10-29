@@ -186,6 +186,7 @@ JSONThreeViewer.prototype.ElementsRender = function () {
         $item.classList.add('item');
         $item.classList.add('level-' + level);
         $item.classList.add('value-type-' + valueType);
+        $item.setAttribute('tabindex', 0);
         return $item;
     }
     this.createKey = function (jsonKey, data, level, valueType) {
