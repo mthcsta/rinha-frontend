@@ -46,7 +46,7 @@ JSONThreeViewer.prototype.extensions.search.filterNode = function (data, text, p
     do {
         const [key, value] = entries[index];
 
-        if (key.indexOf(text) !== -1 || ((typeof value === 'string' || typeof value === 'number') && value.indexOf(text) !== -1)) {
+        if (key.indexOf(text) !== -1 || ((typeof value === 'string' || typeof value === 'number') && value.toString().indexOf(text) !== -1)) {
             foundTotal.found++;
             found.push({value: value, path: path.concat([{key, type: this.self.JSONThreeViewer.getValueType(value)}])});
         } else if (typeof value === 'object' && value !== null) {
@@ -108,20 +108,6 @@ JSONThreeViewer.prototype.extensions.search.renderFoundItem = function (data, fo
         $li.append($key, $value)
         $ul.appendChild($li);
         return $ul;
-        
-       /*
-        const pathData = found.path.slice(0, found.path.length - index).reduce((data, key) => data[key], data);
-        const type = this.self.JSONThreeViewer.getValueType(pathData);
-
-        switch (type) {
-            case 'object':
-                return { [path]: newData };
-            case 'array':
-                return [newData];
-            default:
-                return newData;
-        }
-        */
     }, foundValue);
 
     renderFound.classList.add('root', 'json-three-viewer');
